@@ -33,13 +33,12 @@ public class Snake {
 		bodyList.get(0).setY(bodyList.get(0).getY()+y);
 		bodyList.add(1,body);
 		bodyList.remove(bodyList.size()-1);
-		//判断是否吃到食物
-//		eat();
+		
 	}
 	
 	public boolean die(int x,int y){//判断蛇是否死亡
 		SnakeBody head=new SnakeBody(bodyList.get(0));
-		if(head.getX()+x<0||head.getX()+x>=50||head.getY()+y<0||head.getY()+y>=35){//是否出边界
+		if(head.getX()+x<0||head.getX()+x>=GreddySnake.gameBorderWidth||head.getY()+y<0||head.getY()+y>=GreddySnake.gameBorderHeight){//是否出边界
 			GreddySnake.start=false;
 			return true;
 		}
@@ -60,14 +59,14 @@ public class Snake {
 //			tempAct.setY(bodyList.get(bodyList.size()-1).getY());
 //			bodyList.add(tempAct);
 //			Random ran=new Random();
-//			GreddySnake.foodX=ran.nextInt(50);
-//			GreddySnake.foodY=ran.nextInt(35);
+//			GreddySnake.foodX=ran.nextInt(GreddySnake.gameBorderWidth);
+//			GreddySnake.foodY=ran.nextInt(GreddySnake.gameBorderHeight);
 //		}
 		m.playSound("music\\eat.wav");//播放吃到食物音效
 		SnakeBody newBody=new SnakeBody(bodyList.get(0).getX()+x,bodyList.get(0).getY()+y);
 		bodyList.add(0,newBody);
 		Random ran=new Random();
-		GreddySnake.foodX=ran.nextInt(50);
-		GreddySnake.foodY=ran.nextInt(35);
+		GreddySnake.foodX=ran.nextInt(GreddySnake.gameBorderWidth);
+		GreddySnake.foodY=ran.nextInt(GreddySnake.gameBorderHeight);
 	}
 }
