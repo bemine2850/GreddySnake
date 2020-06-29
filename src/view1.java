@@ -1,4 +1,4 @@
-package menu_view;
+//package menu_view;
 import javax.swing.*;   //图形界面包
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -52,7 +52,24 @@ public class view1 extends JFrame  {
 	 				
 	 			}
 	 		});
+	    b3.addActionListener(new ActionListener() {
+ 			public void actionPerformed(ActionEvent e) {
+ 				new teamwork();
+ 				
+ 			}
+ 		});
+	    b4.addActionListener(new ActionListener() {
+ 			public void actionPerformed(ActionEvent e) {
+ 				JFrame f1 = new JFrame();
+ 				JLabel lab = new JLabel("呀呀呀，被骗了吧，这儿啥都没有，嘻嘻~~~");
+ 				f1.getContentPane().add(lab);
+ 				f1.setBounds(750,600,350, 150); 
+ 				f1.setVisible(true);
+ 			}
+ 		});
 
+	    
+	    
 		setVisible(true);
 	}
 

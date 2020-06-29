@@ -1,15 +1,15 @@
-package menu_view;
-
 import javax.swing.*;  
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 
-public class game_rule extends JFrame {
-	public game_rule() {
+
+public class teamwork extends JFrame {
+
+	public teamwork() {
 		setBounds(650,150, 550, 700); 
-		setTitle("游戏规则介绍");
+		setTitle("项目分工");
 		setResizable(false);     //窗体是否可由用户调节大小
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
@@ -21,12 +21,9 @@ public class game_rule extends JFrame {
 		jt.setWrapStyleWord(true);  //激活断航不断字功能
 		jt.setFont(new Font("隶书",Font.BOLD,25));
 		
-		File f=new File("src/rule.txt");   
+		File f=new File("file/work.txt");   
 		String path = f.getAbsolutePath();
 		path = path.replace("/", "//");
-		//String in = "G:\\eclipse-workspace\\Menu\\src\\rule.txt";
-		
-		//System.out.println(in);
 		readTxt(path,jt);    //获取txt文件中的内容，并显示在文本域中。
 		
 		
@@ -44,7 +41,7 @@ public class game_rule extends JFrame {
 		 c.add(b1,BorderLayout.SOUTH);
 	     b1.addActionListener(new ActionListener() {
 			
-			@Override
+/***/			//@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
 				new view1();
@@ -64,8 +61,9 @@ public class game_rule extends JFrame {
 				BufferedReader bufferedReader = new BufferedReader(read);
 				String lineTxt = null;
 				while((lineTxt = bufferedReader.readLine()) != null){
-					jt.setText(lineTxt);
+					jt.append(lineTxt+"\n");
 				}
+				jt.setEditable(false);
 				read.close();
 			}
 			else {
@@ -83,7 +81,7 @@ public class game_rule extends JFrame {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		new  game_rule();
+		new  teamwork();
 	}
 
 }

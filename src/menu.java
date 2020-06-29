@@ -1,4 +1,4 @@
-package menu_view;
+//package menu_view;
 import javax.swing.*;
 
 import java.applet.Applet;
@@ -11,6 +11,7 @@ import java.net.URL;
 
 public class menu extends JFrame {
 	private boolean flag=true; //用来进行判断音乐播放的标志
+/**/	@SuppressWarnings("deprecation")
 	public menu() {
 		this.setTitle("游戏菜单页");
 		this.setBounds(350,80, 1100, 810);
@@ -29,7 +30,7 @@ public class menu extends JFrame {
 		l.setVisible(true);
 		
 		JPanel p1 = new JPanel();      //这个面板存放选择按钮
-		p1.setBounds(650,220, 220, 600);
+		p1.setBounds(650,160, 220, 600);
 		//p1.setBackground(Color.white);
 		p1.setOpaque(false);  //背景设为透明
 		l.add(p1);
@@ -41,17 +42,19 @@ public class menu extends JFrame {
 		JButton btn_2 = new JButton(new ImageIcon("img/n6.png"));
 		JButton btn_3 = new JButton(new ImageIcon("img/n7.png"));
 		JButton btn_4 = new JButton(new ImageIcon("img/n8.png"));
+		JButton btn_5 = new JButton(new ImageIcon("img/n5.png"));
 	   // p1.add(btn);
 		 JLabel label_1 = new_font(" 单 人 模 式");
 		 JLabel label_2 = new_font(" 双 人 模 式");
 		 JLabel label_3 =  new_font(" 积 分 排 行 ");
-		 JLabel label_4 = new_font(" 退 出 游 戏");
-		 btn_1.add(label_1);btn_2.add(label_2);btn_3.add(label_3);btn_4.add(label_4);
-		p1.add(btn_1);p1.add(btn_2);p1.add(btn_3);p1.add(btn_4);
+		 JLabel label_4 = new_font(" 制 作 地 图");
+		 JLabel label_5 = new_font(" 退 出 游 戏");
+		 btn_1.add(label_1);btn_2.add(label_2);btn_3.add(label_3);btn_4.add(label_4);btn_5.add(label_5);
+		p1.add(btn_1);p1.add(btn_2);p1.add(btn_3);p1.add(btn_4);p1.add(btn_5);
 		
 /*---------------------------------音乐开关-----------------------------------------*/	
 		
-		File f = new File("G:\\eclipse-workspace\\Menu\\music\\Hello.wav");//这个是绝对路径测试的时候修改一下
+		File f = new File("music/Hello.wav");//这个是绝对路径测试的时候修改一下
 		URL url = null;
 		try {
 			 url = f.toURL();
@@ -61,16 +64,52 @@ public class menu extends JFrame {
 			e1.printStackTrace();
 		}
 		
-		AudioClip audioclip = Applet.newAudioClip(url);
-		JLabel l5 = new JLabel(new ImageIcon("img/音乐.png"));
+/**/		final AudioClip audioclip = Applet.newAudioClip(url);
+/**/		final JLabel l5 = new JLabel(new ImageIcon("img/音乐.png"));
 		l5.setBounds(920, 20, 100, 100);
 		l.add(l5);	
 		l5.setVisible(true);
 		audioclip.loop();
 		
-/*---------------------------------各种监听事件-----------------------------------------*/			
+/*---------------------------------各种监听事件-----------------------------------------*/	
+		//单人游戏
+/**/		btn_1.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//dispose();   //当前页面关闭
+				audioclip.stop();
+				new GameStart();
+				
+			}
+		});
+		//双人游戏
+/**/		btn_2.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				//dispose();   //当前页面关闭
+				audioclip.stop();
+//				JFrame frame=new JFrame();
+//				MainFrame mainframe=new MainFrame();
+//				mainframe.main(null);
+//				frame.add(new MainFrame());
+//				frame.setVisible(true);
+				new MainFrame();
+//				JFrame jframe=new JFrame();
+//				jframe.getContentPane().add(new MainFrame());
+			}
+		});
+			//制作地图S
+			btn_4.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+						
+						JFrame jf=new JFrame("自定义地图");
+						jf.setResizable(false);
+						jf.setVisible(true);
+						jf.setBounds(200, 150, 1200,800);
+						jf.getContentPane().add(new MakeGameMap());
+						
+					}
+				});
 		//返回游戏
-	    btn_4.addActionListener(new ActionListener() {
+	    btn_5.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					dispose();   //当前页面关闭
 					audioclip.stop();
@@ -90,7 +129,7 @@ public class menu extends JFrame {
 				}
 				else {
 					l5.setIcon(new ImageIcon("img/音乐.png"));
-					audioclip.loop();
+					audioclip.play();
 					flag = true;
 				}
 				
