@@ -1,4 +1,4 @@
-//package first;
+package first;
 
 import java.util.LinkedList;
 
@@ -20,9 +20,6 @@ public class SnakeD {
 	private boolean isLiving1 = true;
 	private boolean isLiving2 = true;
 	
-	//创建音乐播放类
-/**/		PlayMusic m=new PlayMusic();
-	
 	//构建方法，在创建Snake对象时执行
 	public SnakeD() {
 		//初始化蛇身体
@@ -32,8 +29,8 @@ public class SnakeD {
 	
 	private void initSnake() {
 		//创建集合
-/**/		body1=new LinkedList<Node>();
-/**/		body2=new LinkedList<Node>();
+		body1=new LinkedList<>();
+		body2=new LinkedList<>();
 		//创建六个节点
 		body1.add(new Node(36,20));
 		body1.add(new Node(37,20));
@@ -76,7 +73,6 @@ public class SnakeD {
 			head1 = body1.getFirst();
 			if(head1.getX()<1 || head1.getY()<1 || head1.getX()>=49 || head1.getY()>=34){
 				isLiving1 = false;
-/**/				m.playSound("music\\death.wav");//播放死亡音效
 			}
 			
 			//判断蛇是否碰到自己的身体
@@ -84,7 +80,6 @@ public class SnakeD {
 				Node node = body1.get(i);
 				if(head1.getX() == node.getX() && head1.getY() == node.getY()) {
 					isLiving1 = false;
-/**/				m.playSound("music\\death.wav");//播放死亡音效
 				}
 			}
 			
@@ -93,7 +88,6 @@ public class SnakeD {
 				Node node = body2.get(i);
 				if(head1.getX() == node.getX() && head1.getY() == node.getY()) {
 					isLiving1 = false;
-/**/				m.playSound("music\\death.wav");//播放死亡音效
 				}
 			}
 			
@@ -122,7 +116,6 @@ public class SnakeD {
 			head2 = body2.getFirst();
 			if(head2.getX()<1 || head2.getY()<1 || head2.getX()>=49 || head2.getY()>=34){
 				isLiving2 = false;
-/**/				m.playSound("music\\death.wav");//播放死亡音效
 			}
 			
 			//判断蛇是否碰到自己的身体
@@ -130,7 +123,6 @@ public class SnakeD {
 				Node node = body2.get(i);
 				if(head2.getX() == node.getX() && head2.getY() == node.getY()) {
 					isLiving2 = false;
-/**/				m.playSound("music\\death.wav");//播放死亡音效
 				}
 			}
 			
@@ -139,7 +131,6 @@ public class SnakeD {
 				Node node = body1.get(i);
 				if(head2.getX() == node.getX() && head2.getY() == node.getY()) {
 					isLiving2 = false;
-/**/				m.playSound("music\\death.wav");//播放死亡音效
 				}
 			}
 
@@ -182,7 +173,6 @@ public class SnakeD {
 
 	 //吃食物，延蛇头方向增加一个节点
 	public void eat1(Node food) {
-/**/		m.playSound("music\\eat.wav");//播放吃到食物音效
 		Node head1 = body1.getFirst();
 		switch (direction1) {
 		case UP:
@@ -201,7 +191,6 @@ public class SnakeD {
 		}	
 	}
 	public void eat2(Node food) {
-/**/		m.playSound("music\\eat.wav");//播放吃到食物音效
 		Node head2 = body2.getFirst();
 		switch (direction2) {
 		case W:
