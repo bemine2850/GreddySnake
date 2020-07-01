@@ -1,7 +1,12 @@
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
+/**
+ * TODO:
+ * 传送门穿越方法
+ * 计分方式，速度是否可变
+ * 没有墙壁时蛇的移动方式
+ * */
 
 public class Snake {
 
@@ -9,9 +14,15 @@ public class Snake {
 	PlayMusic m=new PlayMusic();
 	int score=0;//得分
 	List<SnakeBody> bodyList = new ArrayList<SnakeBody>();//保存蛇的整个身体
+	GameMap map;
+	Food food;
+	public Snake(GameMap map/*,Food food*/){
+		this.map=map;
+//		this.food=food;
+	}
 	
-	public Snake(){
-		
+	public void addFood(Food food){
+		this.food=food;
 	}
 	
 	public Snake(int x,int y){
@@ -24,9 +35,29 @@ public class Snake {
 			m.playSound("music\\death.wav");//播放死亡音效
 			return;
 		}
-		if(GreddySnake.foodX==bodyList.get(0).getX()+x&&GreddySnake.foodY==bodyList.get(0).getY()+y){
-			eat(x,y);
-			return;
+		for(int i=0;i<food.foodNum;i++){
+			if(bodyList.get(0).getX()+x==food.foodX[i]&&bodyList.get(0).getY()+y==food.foodY[i])
+			{
+				eat(x,y);
+				food.addFood(i);//补充食物
+				return;
+			}
+		}
+		if(map.get(bodyList.get(0).getY()+y, bodyList.get(0).getX()+x)>1){//进入传送门
+			for(int i=0;i<map.height;i++){
+				for(int j=0;j<map.width;j++){
+					if(map.get(i, j)>1 && i!=bodyList.get(0).getY()+y && j!=bodyList.get(0).getX()+x){
+//						bodyList.set(0, new SnakeBody(j,i));
+						
+						SnakeBody body=new SnakeBody(bodyList.get(0));
+						bodyList.get(0).setX(j+x);
+						bodyList.get(0).setY(i+y);
+						bodyList.add(1,body);
+						bodyList.remove(bodyList.size()-1);
+						return;
+					}
+				}
+			}
 		}
 		SnakeBody body=new SnakeBody(bodyList.get(0));
 		bodyList.get(0).setX(bodyList.get(0).getX()+x);
@@ -38,8 +69,9 @@ public class Snake {
 	
 	public boolean die(int x,int y){//判断蛇是否死亡
 		SnakeBody head=new SnakeBody(bodyList.get(0));
-		if(head.getX()+x<0||head.getX()+x>=GreddySnake.gameBorderWidth||head.getY()+y<0||head.getY()+y>=GreddySnake.gameBorderHeight){//是否出边界
+		if(map.get(head.getY()+y,head.getX()+x)==1){
 			GreddySnake.start=false;
+			System.out.print(head.getX()+x+" "+head.getY()+y);
 			return true;
 		}
 		for(int i=1;i<bodyList.size()-1;i++){//是否咬自己
@@ -52,21 +84,9 @@ public class Snake {
 	}
 	
 	public void eat(int x,int y){
-//		if(GreddySnake.foodX==bodyList.get(0).getX()&&GreddySnake.foodY==bodyList.get(0).getY()){
-//			m.playSound("music\\eat.wav");//播放吃到食物音效
-//			SnakeBody tempAct = new SnakeBody();
-//			tempAct.setX(bodyList.get(bodyList.size()-1).getX());
-//			tempAct.setY(bodyList.get(bodyList.size()-1).getY());
-//			bodyList.add(tempAct);
-//			Random ran=new Random();
-//			GreddySnake.foodX=ran.nextInt(GreddySnake.gameBorderWidth);
-//			GreddySnake.foodY=ran.nextInt(GreddySnake.gameBorderHeight);
-//		}
 		m.playSound("music\\eat.wav");//播放吃到食物音效
 		SnakeBody newBody=new SnakeBody(bodyList.get(0).getX()+x,bodyList.get(0).getY()+y);
 		bodyList.add(0,newBody);
-		Random ran=new Random();
-		GreddySnake.foodX=ran.nextInt(GreddySnake.gameBorderWidth);
-		GreddySnake.foodY=ran.nextInt(GreddySnake.gameBorderHeight);
+		
 	}
 }

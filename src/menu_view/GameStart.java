@@ -15,7 +15,7 @@ import javax.swing.WindowConstants;
  */
 public class GameStart extends JFrame{
 
-	public GameStart(){
+	public GameStart(GameMap map){
 //		JFrame frame=new JFrame();
 //		frame.setTitle("贪吃蛇");
 //		frame.setResizable(false);//不可调整窗口大小
@@ -25,7 +25,7 @@ public class GameStart extends JFrame{
 //		frame.setLocationRelativeTo(null);//窗口居中
 //		frame.setVisible(true);//可见
 //		setLayout(null);
-		add(new GreddySnake());
+		add(new GreddySnake(map));
 		setTitle("贪吃蛇");
 		setSize(1060,800);
 		setLocationRelativeTo(null);//窗口居中显示
@@ -41,7 +41,7 @@ public class GameStart extends JFrame{
 	
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		new GameStart();
+		new GameStart(new GameMap("D:\\ccc.txt"));
 	}
 
 }
