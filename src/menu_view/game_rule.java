@@ -1,4 +1,6 @@
-//package menu_view;
+/*游戏规则介绍的页面
+ * 
+ * */
 
 import javax.swing.*;  
 import java.awt.*;

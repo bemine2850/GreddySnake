@@ -1,3 +1,5 @@
+/*团队分工的介绍页面
+ * */
 import javax.swing.*;  
 import java.awt.*;
 import java.awt.event.ActionEvent;

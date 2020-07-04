@@ -55,6 +55,7 @@ public class MakeGameMap extends JPanel implements MouseMotionListener,MouseList
 	    text.setFont(new Font("楷书",Font.BOLD,20));  //可以设置输入框字体的样式及大小
 		text.setBounds(1050, 80, 120, 40);
         this.add(text);
+        
 		
 		//有无边框
 		JButton btnBorder=new JButton("有无边框");
@@ -145,9 +146,6 @@ public class MakeGameMap extends JPanel implements MouseMotionListener,MouseList
 		if(!paint&&!click&&xStart>=0&&yStart>=0&xEnd>=0&&yEnd>=0){//该判断语句后面是为了解决页面初始化的bug
 			g.fillRect(xStart*25+25, yStart*25+40, (xEnd-xStart+1)*25, (yEnd-yStart+1)*25);
 		}
-		
-		System.out.println(xStart+" "+yStart+" "+xEnd+" "+yEnd);
-		
 		paint=false;//good
 	}
 	
@@ -156,10 +154,10 @@ public class MakeGameMap extends JPanel implements MouseMotionListener,MouseList
 		JFrame jf=new JFrame("自定义地图");
 		jf.setLayout(null);
 		jf.setResizable(false);
-		jf.setVisible(true);
 		jf.setBounds(200, 150, 1200,800);
         jf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		jf.getContentPane().add(new MakeGameMap());
+		jf.setVisible(true);
 		
         
 	}

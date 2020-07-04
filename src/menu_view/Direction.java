@@ -1,4 +1,4 @@
-package first;
+//package first;
 
 /**
  *枚举就是用几个固定的单词表示一些常量

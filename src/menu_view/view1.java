@@ -1,4 +1,5 @@
-//package menu_view;
+/*游戏初始页面包含分工，游戏规则介绍以及进入游戏主菜单页面的按钮及跳转
+ * */
 import javax.swing.*;   //图形界面包
 import java.awt.*;
 import java.awt.event.ActionEvent;

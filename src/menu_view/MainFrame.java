@@ -1,4 +1,4 @@
-package first;
+//package first;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,6 +29,7 @@ public class MainFrame extends JFrame {
 		intiTimer();
 		//设置键盘监听
 		setKeyListener();
+/**/		setVisible(true);
 	}
 	
 	private void initFood() {
@@ -88,6 +89,7 @@ public class MainFrame extends JFrame {
 						}
 						break;	
 					}
+					
 			}		
 		});
 	}
@@ -150,14 +152,14 @@ public class MainFrame extends JFrame {
 				
 				//Graphics g 可以看做一个画笔，提供了很多方法可以绘制一些基本的图形（直线、矩形）
 				//绘制40条直线
-/*				for(int i = 0; i <= 35; i++)
+/**/				for(int i = 0; i <= 35; i++)
 				{
 					g.drawLine(25, i*20+40, 1025, i*20+40);
 				}
 				for(int i = 0; i <= 50; i++) {
 					g.drawLine(i*20+25, 40, i*20+25, 740);
 			}
-*/					
+					
 				//绘制蛇
 				LinkedList<Node> body1 = snake.getBody1();
 				for(Node node1 : body1) {
@@ -184,7 +186,8 @@ public class MainFrame extends JFrame {
 
 	public static void main(String[] args) {
 		//创建窗体对象并显示
-		new MainFrame().setVisible(true);
+//		new MainFrame().setVisible(true);
+/**/		new MainFrame();
 	}
 	
 }

@@ -8,24 +8,27 @@ import java.util.Random;
  * 没有墙壁时蛇的移动方式
  * */
 
-public class Snake {
+public class Snake_Two {
 
 	//创建音乐播放类
 	PlayMusic m=new PlayMusic();
 	int score=0;//得分
 	List<SnakeBody> bodyList = new ArrayList<SnakeBody>();//保存蛇的整个身体
 	GameMap map;
-	Food food;
-	public Snake(GameMap map/*,Food food*/){
+	Food_Two food;
+	
+//	private Direction direction;
+	
+	public Snake_Two(GameMap map/*,Food food*/){
 		this.map=map;
 //		this.food=food;
 	}
 	
-	public void addFood(Food food){
+	public void addFood(Food_Two food){
 		this.food=food;
 	}
 	
-	public Snake(int x,int y){
+	public Snake_Two(int x,int y){
 		SnakeBody body=new SnakeBody(x,y);
 		bodyList.add(body);
 	}
@@ -70,16 +73,21 @@ public class Snake {
 	public boolean die(int x,int y){//判断蛇是否死亡
 		SnakeBody head=new SnakeBody(bodyList.get(0));
 		if(map.get(head.getY()+y,head.getX()+x)==1){
-			GreddySnake.start=false;
+			GreddySnake_Two.start=false;
 			System.out.print(head.getX()+x+" "+head.getY()+y);
 			return true;
 		}
 		for(int i=1;i<bodyList.size()-1;i++){//是否咬自己
 			if(head.getX()+x==bodyList.get(i).getX()&&head.getY()+y==bodyList.get(i).getY()){
-				GreddySnake.start=false;
+				GreddySnake_Two.start=false;
 				return true;
 			}
 		}
+		
+/**		for(int i=1;i<bodyList.size()-1;i++) {//两条小蛇有没有碰撞
+			Snake1.head.getX();
+		}
+*/		
 		return false;
 	}
 	
@@ -89,4 +97,13 @@ public class Snake {
 		bodyList.add(0,newBody);
 		
 	}
+	
+/**	 public Direction getDirection() {
+			return getDirection();
+	}
+	 
+	 public void setDirection(Direction direction) {
+		 this.direction = direction;
+	}
+*/
 }

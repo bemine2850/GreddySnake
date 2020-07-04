@@ -14,7 +14,8 @@ public class GreddySnake extends JPanel implements ActionListener,KeyListener,Ru
 	public static final int gameBorderLeft=25;//游戏板距离左边边界距离
 	public static final int gameBorderUp=40;//游戏板距离左边边界距离
 	
-	
+	GameMap map;
+	Food food;
 	static boolean start=false;
 	static int foodX;
 	static int foodY;
@@ -24,7 +25,8 @@ public class GreddySnake extends JPanel implements ActionListener,KeyListener,Ru
 	Thread thread;
 	static int key=0;//记录键盘
 	
-	public GreddySnake(){
+	public GreddySnake(GameMap map){
+		this.map=map;
 		this.setLayout(new FlowLayout(FlowLayout.LEFT));//流式布局，默认布局组件会居中
 		this.addKeyListener(this);//键盘监听
 		this.setFocusable(true);
@@ -47,14 +49,17 @@ public class GreddySnake extends JPanel implements ActionListener,KeyListener,Ru
 		btnOver.addActionListener((ActionListener) this);
 		btnOver.setLocation(200, 200);
 		this.add(btnOver);
-		//初始化食物位置
-		foodX=ran.nextInt(gameBorderWidth);
-		foodY=ran.nextInt(gameBorderHeight);
 		//创建小蛇，给它加一节身体，并指定位置
-		snake=new Snake();
+		snake=new Snake(map);
 		snake.bodyList.add(new SnakeBody());
 		snake.bodyList.get(0).setX(17);
 		snake.bodyList.get(0).setY(25);
+		//初始化食物位置
+//		foodX=ran.nextInt(gameBorderWidth);
+//		foodY=ran.nextInt(gameBorderHeight);
+		food=new Food(map,snake);
+		
+		snake.addFood(food);
 		
 		
 	}
@@ -62,6 +67,7 @@ public class GreddySnake extends JPanel implements ActionListener,KeyListener,Ru
 	public void paintComponent(Graphics g){//画图
 		super.paintComponent(g);
 		g.drawRect(gameBorderLeft, gameBorderUp, 1000, 700);//实际游戏界面为1000*700
+		//网格线
 		for(int i = 0; i <= gameBorderHeight; i++)
 		{
 			g.drawLine(gameBorderLeft, i*gameBorderUnit+gameBorderUp, 1025, i*gameBorderUnit+gameBorderUp);
@@ -69,11 +75,26 @@ public class GreddySnake extends JPanel implements ActionListener,KeyListener,Ru
 		for(int i = 0; i <= gameBorderWidth; i++) {
 			g.drawLine(i*gameBorderUnit+gameBorderLeft, gameBorderUp, i*gameBorderUnit+gameBorderLeft, 740);
 		}
+		//地图
+		for(int i=0;i<gameBorderHeight;i++){
+			for(int j=0;j<gameBorderWidth;j++){
+				if(map.get(i, j)==1){
+					g.setColor(new Color(139, 170, 65));
+					g.fillRect(j*25+25, i*25+40, 25, 25);
+				}else if(map.get(i, j)>1){
+					g.setColor(new Color(255, 0, 0));
+					g.fillRect(j*25+25,i*25+40 , 25, 25);
+				}
+			}
+		}
  
 		if(start){//游戏中
 			//画食物
 			g.setColor(Color.yellow);
-			g.fillRect(foodX*gameBorderUnit+gameBorderLeft, foodY*gameBorderUnit+gameBorderUp, gameBorderUnit, gameBorderUnit);
+//			g.fillRect(foodX*gameBorderUnit+gameBorderLeft, foodY*gameBorderUnit+gameBorderUp, gameBorderUnit, gameBorderUnit);
+			for(int i=0;i<food.foodNum;i++){
+				g.fillRect(food.foodX[i]*gameBorderUnit+gameBorderLeft, food.foodY[i]*gameBorderUnit+gameBorderUp, gameBorderUnit, gameBorderUnit);
+			}
 			//画小蛇
 			g.setColor(Color.blue);
 			
@@ -161,14 +182,11 @@ public class GreddySnake extends JPanel implements ActionListener,KeyListener,Ru
 			}
 			repaint();
 			try {
-				thread.sleep(500);
+				thread.sleep(400);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
-		
-		
-		
 	}
 }

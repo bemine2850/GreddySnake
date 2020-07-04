@@ -6,8 +6,18 @@ import java.util.Scanner;
 
 public class GameMap {
 
-	int [][]dot =new int[28][40];
-	
+	int width=40;
+	int height=28;
+	int [][]dot =new int[height][width];
+	File gameMap;
+	public GameMap(){
+		
+	}
+	public GameMap(String gameName) {
+		// TODO Auto-generated constructor stub
+		gameMap=new File(gameName);
+		readMap(gameMap);
+	}
 	public int get(int x,int y){//获取地图坐标信息
 		return dot[x][y];
 	}

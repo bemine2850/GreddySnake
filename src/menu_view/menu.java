@@ -1,4 +1,6 @@
-//package menu_view;
+/*主菜单页面包含单双人模式，自定义地图，积分排行和退出游戏按钮
+ * 
+ * */
 import javax.swing.*;
 
 import java.applet.Applet;
@@ -11,6 +13,7 @@ import java.net.URL;
 
 public class menu extends JFrame {
 	private boolean flag=true; //用来进行判断音乐播放的标志
+	public static int choose_number = 0;  //用来标记进入的是单人（1）还是双人模式（2）
 /**/	@SuppressWarnings("deprecation")
 	public menu() {
 		this.setTitle("游戏菜单页");
@@ -75,25 +78,23 @@ public class menu extends JFrame {
 		//单人游戏
 /**/		btn_1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//dispose();   //当前页面关闭
-				audioclip.stop();
-				new GameStart();
+				dispose();   //当前页面关闭
+				audioclip.stop();   //音乐关闭
+				choose_number = 1;
+				new choose();
+				System.out.println(choose_number);
 				
 			}
 		});
 		//双人游戏
 /**/		btn_2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//dispose();   //当前页面关闭
 				audioclip.stop();
-//				JFrame frame=new JFrame();
-//				MainFrame mainframe=new MainFrame();
-//				mainframe.main(null);
-//				frame.add(new MainFrame());
-//				frame.setVisible(true);
-				new MainFrame();
-//				JFrame jframe=new JFrame();
-//				jframe.getContentPane().add(new MainFrame());
+				dispose();   
+				choose_number = 2;
+				new choose();
+				System.out.println(choose_number);
+				
 			}
 		});
 			//制作地图S
@@ -148,6 +149,7 @@ public class menu extends JFrame {
 	 	 return l;
 		
 	}
+
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
       new menu() ;
