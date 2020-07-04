@@ -3,6 +3,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
 import java.util.Random;
 
 import javax.swing.*;
@@ -118,6 +119,7 @@ public class GreddySnake extends JPanel implements ActionListener,KeyListener,Ru
 //			g.drawString("ddhjk",400,320);
 //		}
 	}
+	AchievementRecord ar=new AchievementRecord();//新建成就记录类
 	
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
@@ -126,9 +128,20 @@ public class GreddySnake extends JPanel implements ActionListener,KeyListener,Ru
 			thread=new Thread(this);
 			thread.start();
 			start=true;
+			//开始计时
+			ar.startTiming();
 		}else{
 			start=false;
 			thread=null;
+			//结束计时并打印成绩
+			ar.endTiming();
+			ar.score=snake.score;
+			try {
+				ar.printScoreTime();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		repaint();
 		this.requestFocus();//返回焦点到上一层，很重要
