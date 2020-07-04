@@ -1,28 +1,7 @@
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.List;
-import java.awt.SplashScreen;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.io.BufferedReader;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.Scanner;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import java.awt.*;
+import java.io.*;
+import java.util.*;
+import javax.swing.*;
 
 public class AchievementRecord extends JFrame{
 	class ST{//这个类用于从排行榜文件读取数据时，临时存储这些数据
@@ -196,12 +175,6 @@ public class AchievementRecord extends JFrame{
 		
 		this.setVisible(true);
 		
-	}
-	
-	
-	public static void main(String[] args) throws IOException {
-		AchievementRecord tmp=new AchievementRecord();
-		tmp.printScoreTime();
 	}
 	
 }
