@@ -45,7 +45,7 @@ public class choose extends JFrame {
 						}
 						if(m.choose_number == 2) {
 							setVisible(false);  //窗口隐藏
-							new MainFrame(); //进入双人游戏
+							new GameStart_Two(new GameMap("D:\\ccc.txt")); //进入双人游戏
 						}
 					}
 				}
