@@ -16,12 +16,12 @@ public class Snake_Two {
 	List<SnakeBody> bodyList = new ArrayList<SnakeBody>();//保存蛇的整个身体
 	GameMap map;
 	Food_Two food;
+	Snake_Two snake;
 	
 //	private Direction direction;
 	
-	public Snake_Two(GameMap map/*,Food food*/){
+	public Snake_Two(GameMap map){
 		this.map=map;
-//		this.food=food;
 	}
 	
 	public void addFood(Food_Two food){
@@ -33,8 +33,9 @@ public class Snake_Two {
 		bodyList.add(body);
 	}
 	
-	public void move(int x,int y){
-		if(die(x,y)){//在移动之前预判下一步会不会挂
+	public void move(int x,int y,Snake_Two snake){
+		this.snake=snake;
+		if(die(x,y,snake)){//在移动之前预判下一步会不会挂
 			m.playSound("music\\death.wav");//播放死亡音效
 			return;
 		}
@@ -70,7 +71,10 @@ public class Snake_Two {
 		
 	}
 	
-	public boolean die(int x,int y){//判断蛇是否死亡
+	
+	
+	public boolean die(int x,int y,Snake_Two snake){//判断蛇是否死亡
+		this.snake=snake;
 		SnakeBody head=new SnakeBody(bodyList.get(0));
 		if(map.get(head.getY()+y,head.getX()+x)==1){
 			GreddySnake_Two.start=false;
@@ -84,15 +88,19 @@ public class Snake_Two {
 			}
 		}
 		
-/**		for(int i=1;i<bodyList.size()-1;i++) {//两条小蛇有没有碰撞
-			Snake1.head.getX();
+		for(int i=1;i<snake.bodyList.size()-1;i++) {//两条小蛇有没有碰撞
+			if(head.getX()+x==snake.bodyList.get(i).getX()&&head.getY()+y==snake.bodyList.get(i).getY()) {
+				GreddySnake_Two.start=false;
+				return true;
+			}
 		}
-*/		
+		
 		return false;
 	}
 	
 	public void eat(int x,int y){
 		m.playSound("music\\eat.wav");//播放吃到食物音效
+		score+=10;
 		SnakeBody newBody=new SnakeBody(bodyList.get(0).getX()+x,bodyList.get(0).getY()+y);
 		bodyList.add(0,newBody);
 		
