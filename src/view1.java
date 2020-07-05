@@ -1,5 +1,4 @@
-/*游戏初始页面包含分工，游戏规则介绍以及进入游戏主菜单页面的按钮及跳转
- * */
+//package menu_view;
 import javax.swing.*;   //图形界面包
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -15,8 +14,8 @@ public class view1 extends JFrame  {
 		Container c = getContentPane();
 		c.setLayout(null);  //绝对布局
 		c.setBackground(Color.decode("#e5f8ff"));
-		c.validate();//验证容器中的组件，刷新    
-        this.setContentPane(c);//窗体重新载入容器
+		//c.validate();//验证容器中的组件，刷新    
+       // this.setContentPane(c);//窗体重新载入容器
 		
 		JLabel label = new JLabel();  //标签
 		label.setIcon(new ImageIcon("img/monster.jpg"));	//添加图片
@@ -69,8 +68,7 @@ public class view1 extends JFrame  {
  			}
  		});
 
-	    
-	    
+
 		setVisible(true);
 	}
 

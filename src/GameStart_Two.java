@@ -30,7 +30,7 @@ public class GameStart_Two extends JFrame{
 		setSize(1060,800);
 		setLocationRelativeTo(null);//窗口居中显示
 		setResizable(false);
-		setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		setVisible(true);
 		
 		//创建音乐播放类，循环播放背景音乐

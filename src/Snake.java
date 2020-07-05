@@ -44,11 +44,11 @@ public class Snake {
 			}
 		}
 		if(map.get(bodyList.get(0).getY()+y, bodyList.get(0).getX()+x)>1){//进入传送门
+			
 			for(int i=0;i<map.height;i++){
 				for(int j=0;j<map.width;j++){
-					if(map.get(i, j)>1 && i!=bodyList.get(0).getY()+y && j!=bodyList.get(0).getX()+x){
+					if(map.get(i, j)>1 && (i!=bodyList.get(0).getY()+y || j!=bodyList.get(0).getX()+x)){
 //						bodyList.set(0, new SnakeBody(j,i));
-						
 						SnakeBody body=new SnakeBody(bodyList.get(0));
 						bodyList.get(0).setX(j+x);
 						bodyList.get(0).setY(i+y);

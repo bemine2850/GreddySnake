@@ -76,6 +76,9 @@ public class GreddySnake extends JPanel implements ActionListener,KeyListener,Ru
 			g.drawLine(i*gameBorderUnit+gameBorderLeft, gameBorderUp, i*gameBorderUnit+gameBorderLeft, 740);
 		}
 		//地图
+		
+		ImageIcon doorIcon = new ImageIcon("img/door1.png");
+		Image imgDoor= doorIcon.getImage();
 		for(int i=0;i<gameBorderHeight;i++){
 			for(int j=0;j<gameBorderWidth;j++){
 				if(map.get(i, j)==1){
@@ -83,17 +86,22 @@ public class GreddySnake extends JPanel implements ActionListener,KeyListener,Ru
 					g.fillRect(j*25+25, i*25+40, 25, 25);
 				}else if(map.get(i, j)>1){
 					g.setColor(new Color(255, 0, 0));
-					g.fillRect(j*25+25,i*25+40 , 25, 25);
+//					g.fillRect(j*25+25,i*25+40 , 25, 25);
+					g.drawImage(imgDoor, j*gameBorderUnit+gameBorderLeft, i*gameBorderUnit+gameBorderUp, gameBorderUnit,gameBorderUnit, null);
 				}
 			}
 		}
  
-		if(start){//游戏中
+//		if(start){//游戏中
 			//画食物
+			ImageIcon foodIcon = new ImageIcon("img/food.png");
+			Image imgFood= foodIcon.getImage();
+		
 			g.setColor(Color.yellow);
 //			g.fillRect(foodX*gameBorderUnit+gameBorderLeft, foodY*gameBorderUnit+gameBorderUp, gameBorderUnit, gameBorderUnit);
 			for(int i=0;i<food.foodNum;i++){
-				g.fillRect(food.foodX[i]*gameBorderUnit+gameBorderLeft, food.foodY[i]*gameBorderUnit+gameBorderUp, gameBorderUnit, gameBorderUnit);
+//				g.fillRect(food.foodX[i]*gameBorderUnit+gameBorderLeft, food.foodY[i]*gameBorderUnit+gameBorderUp, gameBorderUnit, gameBorderUnit);
+				g.drawImage(imgFood, food.foodX[i]*gameBorderUnit+gameBorderLeft, food.foodY[i]*gameBorderUnit+gameBorderUp, gameBorderUnit,gameBorderUnit, null);
 			}
 			//画小蛇
 			g.setColor(Color.blue);
@@ -109,7 +117,7 @@ public class GreddySnake extends JPanel implements ActionListener,KeyListener,Ru
 			for(int i=1;i<snake.bodyList.size();i++){
 //				g.fillRect(snake.bodyList.get(i).getX()*gameBorderUnit+gameBorderLeft, snake.bodyList.get(i).getY()*gameBorderUnit+gameBorderUp, gameBorderUnit, gameBorderUnit);
 				g.drawImage(imgBody, snake.bodyList.get(i).getX()*gameBorderUnit+gameBorderLeft, snake.bodyList.get(i).getY()*gameBorderUnit+gameBorderUp, gameBorderUnit,gameBorderUnit, null);
-			}
+//			}
 
 		}
 //		else{
@@ -119,10 +127,15 @@ public class GreddySnake extends JPanel implements ActionListener,KeyListener,Ru
 //		}
 	}
 	
+	boolean firstClick=true;
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getActionCommand()=="开始"){
-			init();
+			
+			if(!firstClick){
+				init();
+			}
+			firstClick=false;
 			thread=new Thread(this);
 			thread.start();
 			start=true;

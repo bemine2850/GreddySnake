@@ -33,7 +33,7 @@ public class menu extends JFrame {
 		l.setVisible(true);
 		
 		JPanel p1 = new JPanel();      //这个面板存放选择按钮
-		p1.setBounds(650,160, 220, 600);
+		p1.setBounds(650,220, 220, 600);
 		//p1.setBackground(Color.white);
 		p1.setOpaque(false);  //背景设为透明
 		l.add(p1);
@@ -44,16 +44,17 @@ public class menu extends JFrame {
 		JButton btn_1 = new JButton(new ImageIcon("img/n4.png"));
 		JButton btn_2 = new JButton(new ImageIcon("img/n6.png"));
 		JButton btn_3 = new JButton(new ImageIcon("img/n7.png"));
-		JButton btn_4 = new JButton(new ImageIcon("img/n8.png"));
+		//JButton btn_4 = new JButton(new ImageIcon("img/n8.png"));
 		JButton btn_5 = new JButton(new ImageIcon("img/n5.png"));
 	   // p1.add(btn);
 		 JLabel label_1 = new_font(" 单 人 模 式");
 		 JLabel label_2 = new_font(" 双 人 模 式");
 		 JLabel label_3 =  new_font(" 积 分 排 行 ");
-		 JLabel label_4 = new_font(" 制 作 地 图");
+		 //JLabel label_4 = new_font(" 制 作 地 图");
 		 JLabel label_5 = new_font(" 退 出 游 戏");
-		 btn_1.add(label_1);btn_2.add(label_2);btn_3.add(label_3);btn_4.add(label_4);btn_5.add(label_5);
-		p1.add(btn_1);p1.add(btn_2);p1.add(btn_3);p1.add(btn_4);p1.add(btn_5);
+		 btn_1.add(label_1);btn_2.add(label_2);btn_3.add(label_3);btn_5.add(label_5);
+		p1.add(btn_1);p1.add(btn_2);p1.add(btn_3);p1.add(btn_5);
+		//btn_4.add(label_4);p1.add(btn_4);
 		
 /*---------------------------------音乐开关-----------------------------------------*/	
 		
@@ -98,17 +99,17 @@ public class menu extends JFrame {
 			}
 		});
 			//制作地图S
-			btn_4.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-						
-						JFrame jf=new JFrame("自定义地图");
-						jf.setResizable(false);
-						jf.setVisible(true);
-						jf.setBounds(200, 150, 1200,800);
-						jf.getContentPane().add(new MakeGameMap());
-						
-					}
-				});
+//			btn_4.addActionListener(new ActionListener() {
+//					public void actionPerformed(ActionEvent e) {
+//						
+//						JFrame jf=new JFrame("自定义地图");
+//						jf.setResizable(false);
+//						jf.setVisible(true);
+//						jf.setBounds(200, 150, 1200,800);
+//						jf.getContentPane().add(new MakeGameMap());
+//						
+//					}
+//				});
 		//返回游戏
 	    btn_5.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {

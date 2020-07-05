@@ -1,29 +1,29 @@
-/*游戏规则介绍的页面
- * 
+/*团队分工的介绍页面
  * */
-
 import javax.swing.*;  
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 
-public class game_rule extends JFrame {
-	public game_rule() {
+
+public class teamwork extends JFrame {
+
+	public teamwork() {
 		setBounds(650,150, 550, 700); 
-		setTitle("游戏规则介绍");
+		setTitle("项目分工");
 		setResizable(false);     //窗体是否可由用户调节大小
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		Container c = getContentPane();
 		c.setLayout(new BorderLayout());
-		JTextArea jt = new JTextArea(50,70);
-		//jt.setTabSize(2);  // 设置Tab键调的距离
+		JTextArea jt = new JTextArea(25,60);
+		jt.setTabSize(2);  // 设置Tab键调的距离
 		jt.setLineWrap(true);//激活自动换行功能
 		jt.setWrapStyleWord(true);  //激活断航不断字功能
 		jt.setFont(new Font("隶书",Font.BOLD,25));
 		
-		File f=new File("file/rule.txt");   
+		File f=new File("file/work.txt");   
 		String path = f.getAbsolutePath();
 		path = path.replace("/", "//");
 		readTxt(path,jt);    //获取txt文件中的内容，并显示在文本域中。
@@ -69,7 +69,7 @@ public class game_rule extends JFrame {
 				read.close();
 			}
 			else {
-				System.out.println("没有相关的游戏规则介绍文件！");
+				System.out.println("没有相关分工介绍！");
 			}
 			
 		}catch (Exception e) {
@@ -83,7 +83,7 @@ public class game_rule extends JFrame {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		new  game_rule();
+		new  teamwork();
 	}
 
 }

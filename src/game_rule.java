@@ -1,19 +1,17 @@
-/*团队分工的介绍页面
- * */
+//package menu_view;
+
 import javax.swing.*;  
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 
-
-public class teamwork extends JFrame {
-
-	public teamwork() {
+public class game_rule extends JFrame {
+	public game_rule() {
 		setBounds(650,150, 550, 700); 
-		setTitle("项目分工");
+		setTitle("游戏介绍");
 		setResizable(false);     //窗体是否可由用户调节大小
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
 		Container c = getContentPane();
 		c.setLayout(new BorderLayout());
@@ -23,7 +21,7 @@ public class teamwork extends JFrame {
 		jt.setWrapStyleWord(true);  //激活断航不断字功能
 		jt.setFont(new Font("隶书",Font.BOLD,25));
 		
-		File f=new File("file/work.txt");   
+		File f=new File("file/rule.txt");   
 		String path = f.getAbsolutePath();
 		path = path.replace("/", "//");
 		readTxt(path,jt);    //获取txt文件中的内容，并显示在文本域中。
@@ -83,7 +81,7 @@ public class teamwork extends JFrame {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 
-		new  teamwork();
+		new  game_rule();
 	}
 
 }
