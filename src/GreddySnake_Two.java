@@ -3,6 +3,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import javax.swing.*;
@@ -84,7 +87,10 @@ public class GreddySnake_Two extends JPanel implements ActionListener,KeyListene
 		for(int i = 0; i <= gameBorderWidth; i++) {
 			g.drawLine(i*gameBorderUnit+gameBorderLeft, gameBorderUp, i*gameBorderUnit+gameBorderLeft, 740);
 		}
+		
 		//地图
+		ImageIcon doorIcon = new ImageIcon("img/door1.png");
+		Image imgDoor= doorIcon.getImage();
 		for(int i=0;i<gameBorderHeight;i++){
 			for(int j=0;j<gameBorderWidth;j++){
 				if(map.get(i, j)==1){
@@ -92,67 +98,99 @@ public class GreddySnake_Two extends JPanel implements ActionListener,KeyListene
 					g.fillRect(j*25+25, i*25+40, 25, 25);
 				}else if(map.get(i, j)>1){
 					g.setColor(new Color(255, 0, 0));
-					g.fillRect(j*25+25,i*25+40 , 25, 25);
+//					g.fillRect(j*25+25,i*25+40 , 25, 25);
+					g.drawImage(imgDoor, j*gameBorderUnit+gameBorderLeft, i*gameBorderUnit+gameBorderUp, gameBorderUnit,gameBorderUnit, null);
 				}
 			}
 		}
  
-		if(start){//游戏中
-			//画食物
-			g.setColor(Color.yellow);
-//			g.fillRect(foodX*gameBorderUnit+gameBorderLeft, foodY*gameBorderUnit+gameBorderUp, gameBorderUnit, gameBorderUnit);
-			for(int i=0;i<food.foodNum;i++){
-				g.fillRect(food.foodX[i]*gameBorderUnit+gameBorderLeft, food.foodY[i]*gameBorderUnit+gameBorderUp, gameBorderUnit, gameBorderUnit);
-			}
-			//画小蛇
-			g.setColor(Color.blue);
-			
-//			for(int i=0;i<snake.bodyList.size();i++){
-//				g.fillRect(snake.bodyList.get(i).getX()*gameBorderUnit+gameBorderLeft, snake.bodyList.get(i).getY()*gameBorderUnit+gameBorderUp, gameBorderUnit, gameBorderUnit);
-//			}
-			ImageIcon head1 = new ImageIcon("img/head.png");
-			Image imgHead1= head1.getImage();
-			ImageIcon body1 = new ImageIcon("img/body.png");
-			Image imgBody1= body1.getImage();
-			
-			ImageIcon head2 = new ImageIcon("img/head2.png");
-			Image imgHead2= head2.getImage();
-			ImageIcon body2 = new ImageIcon("img/body2.png");
-			Image imgBody2= body2.getImage();
-			
-			
-			
-			g.drawImage(imgHead1, snake1.bodyList.get(0).getX()*gameBorderUnit+gameBorderLeft, snake1.bodyList.get(0).getY()*gameBorderUnit+gameBorderUp, gameBorderUnit,gameBorderUnit, null);
-			g.drawImage(imgHead2, snake2.bodyList.get(0).getX()*gameBorderUnit+gameBorderLeft, snake2.bodyList.get(0).getY()*gameBorderUnit+gameBorderUp, gameBorderUnit,gameBorderUnit, null);
-			
-			for(int i=1;i<snake1.bodyList.size();i++){
-//				g.fillRect(snake.bodyList.get(i).getX()*gameBorderUnit+gameBorderLeft, snake.bodyList.get(i).getY()*gameBorderUnit+gameBorderUp, gameBorderUnit, gameBorderUnit);
-				g.drawImage(imgBody1, snake1.bodyList.get(i).getX()*gameBorderUnit+gameBorderLeft, snake1.bodyList.get(i).getY()*gameBorderUnit+gameBorderUp, gameBorderUnit,gameBorderUnit, null);
-			}
-			for(int i=1;i<snake2.bodyList.size();i++){
-//				g.fillRect(snake.bodyList.get(i).getX()*gameBorderUnit+gameBorderLeft, snake.bodyList.get(i).getY()*gameBorderUnit+gameBorderUp, gameBorderUnit, gameBorderUnit);
-				g.drawImage(imgBody2, snake2.bodyList.get(i).getX()*gameBorderUnit+gameBorderLeft, snake2.bodyList.get(i).getY()*gameBorderUnit+gameBorderUp, gameBorderUnit,gameBorderUnit, null);
-			}
-
-		}
+		//画食物
+		ImageIcon foodIcon = new ImageIcon("img/food.png");
+		Image imgFood= foodIcon.getImage();
 		
-//		else{
-//			g.setColor(Color.green);
-//			g.setFont(new Font("Courier",Font.BOLD,gameBorderWidth));
-//			g.drawString("ddhjk",400,320);
-//		}
+//		g.setColor(Color.yellow);
+		for(int i=0;i<food.foodNum;i++){
+			g.drawImage(imgFood, food.foodX[i]*gameBorderUnit+gameBorderLeft, food.foodY[i]*gameBorderUnit+gameBorderUp, gameBorderUnit,gameBorderUnit, null);
+		}
+			
+		//画小蛇
+//		g.setColor(Color.blue);
+			
+		ImageIcon head1 = new ImageIcon("img/head.png");
+		Image imgHead1= head1.getImage();
+		ImageIcon body1 = new ImageIcon("img/body.png");
+		Image imgBody1= body1.getImage();
+			
+		ImageIcon head2 = new ImageIcon("img/head2.png");
+		Image imgHead2= head2.getImage();
+		ImageIcon body2 = new ImageIcon("img/body2.png");
+		Image imgBody2= body2.getImage();
+			
+			
+			
+		g.drawImage(imgHead1, snake1.bodyList.get(0).getX()*gameBorderUnit+gameBorderLeft, snake1.bodyList.get(0).getY()*gameBorderUnit+gameBorderUp, gameBorderUnit,gameBorderUnit, null);
+		g.drawImage(imgHead2, snake2.bodyList.get(0).getX()*gameBorderUnit+gameBorderLeft, snake2.bodyList.get(0).getY()*gameBorderUnit+gameBorderUp, gameBorderUnit,gameBorderUnit, null);
+			
+		for(int i=1;i<snake1.bodyList.size();i++){
+//			g.fillRect(snake.bodyList.get(i).getX()*gameBorderUnit+gameBorderLeft, snake.bodyList.get(i).getY()*gameBorderUnit+gameBorderUp, gameBorderUnit, gameBorderUnit);
+			g.drawImage(imgBody1, snake1.bodyList.get(i).getX()*gameBorderUnit+gameBorderLeft, snake1.bodyList.get(i).getY()*gameBorderUnit+gameBorderUp, gameBorderUnit,gameBorderUnit, null);
+			}
+		for(int i=1;i<snake2.bodyList.size();i++){
+//			g.fillRect(snake.bodyList.get(i).getX()*gameBorderUnit+gameBorderLeft, snake.bodyList.get(i).getY()*gameBorderUnit+gameBorderUp, gameBorderUnit, gameBorderUnit);
+			g.drawImage(imgBody2, snake2.bodyList.get(i).getX()*gameBorderUnit+gameBorderLeft, snake2.bodyList.get(i).getY()*gameBorderUnit+gameBorderUp, gameBorderUnit,gameBorderUnit, null);
+		}
 	}
+	
+	AchievementRecord ar1=new AchievementRecord();//新建成就记录类
+	AchievementRecord ar2=new AchievementRecord();
+	boolean firstClick=true;
 	
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getActionCommand()=="开始"){
-			init();
+/**			init();
 			thread=new Thread(this);
 			thread.start();
 			start=true;
 		}else{
 			start=false;
 			thread=null;
+		}
+		repaint();
+		this.requestFocus();//返回焦点到上一层
+*/
+			if(!firstClick){
+				init();
+			}
+			firstClick=false;
+			thread=new Thread(this);
+			thread.start();
+			start=true;
+			//开始计时
+			ar1.startTiming();
+			ar2.startTiming();
+		}else{
+			start=false;
+			thread=null;
+			//结束计时并打印成绩
+			ar1.endTiming();
+			ar2.endTiming();
+			ar1.score=snake1.score;
+			ar2.score=snake2.score;
+			try {
+				ar1.setTitle("PLAY1");
+				ar1.printScoreTime();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			try {
+				ar2.setTitle("PLAY2");
+				ar2.printScoreTime();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		repaint();
 		this.requestFocus();//返回焦点到上一层，很重要
@@ -168,13 +206,13 @@ public class GreddySnake_Two extends JPanel implements ActionListener,KeyListene
 			if(keycode>=37&&keycode<=40)
 				key1=keycode;
 			if(key1==KeyEvent.VK_LEFT&&oldKey1!=KeyEvent.VK_RIGHT){
-				snake1.move(-1,0);
+				snake1.move(-1,0,snake2);
 			}else if(key1==KeyEvent.VK_RIGHT&&oldKey1!=KeyEvent.VK_LEFT){
-				snake1.move(1,0);
+				snake1.move(1,0,snake2);
 			}else if(key1==KeyEvent.VK_UP&&oldKey1!=KeyEvent.VK_DOWN){
-				snake1.move(0,-1);
+				snake1.move(0,-1,snake2);
 			}else if(key1==KeyEvent.VK_DOWN&&oldKey1!=KeyEvent.VK_UP){
-				snake1.move(0,1);
+				snake1.move(0,1,snake2);
 			}
 			repaint();
 			
@@ -182,25 +220,25 @@ public class GreddySnake_Two extends JPanel implements ActionListener,KeyListene
 			if(keycode==65||keycode==68||keycode==83||keycode==87)
 				key2=keycode;
 			if(key2==KeyEvent.VK_A&&oldKey2!=KeyEvent.VK_D){
-				snake2.move(-1,0);
+				snake2.move(-1,0,snake1);
 			}else if(key2==KeyEvent.VK_D&&oldKey2!=KeyEvent.VK_A){
-				snake2.move(1,0);
+				snake2.move(1,0,snake1);
 			}else if(key2==KeyEvent.VK_W&&oldKey2!=KeyEvent.VK_S){
-				snake2.move(0,-1);
+				snake2.move(0,-1,snake1);
 			}else if(key2==KeyEvent.VK_S&&oldKey2!=KeyEvent.VK_W){
-				snake2.move(0,1);
+				snake2.move(0,1,snake1);
 			}
 			repaint();
 			
 		}
 	}
 
-	public void keyReleased(KeyEvent arg0) {//不用实现
+	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
 
-	public void keyTyped(KeyEvent arg0) {//不用实现
+	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
 		
 	}
@@ -208,19 +246,6 @@ public class GreddySnake_Two extends JPanel implements ActionListener,KeyListene
 	public void run() {
 		// TODO Auto-generated method stub
 /**		while(start){
-			if(key1==KeyEvent.VK_LEFT){
-				snake1.move(-1,0);
-			}else if(key1==KeyEvent.VK_RIGHT){
-				snake1.move(1,0);
-			}else if(key1==KeyEvent.VK_UP){
-				snake1.move(0,-1);
-				
-			}else if(key1==KeyEvent.VK_DOWN){
-				snake1.move(0,1);
-			}
-			repaint();
-**/
-		while(start){
 			int oldKey1=key1;
 			if(key1==KeyEvent.VK_LEFT){
 				snake1.move(-1,0);
@@ -244,37 +269,62 @@ public class GreddySnake_Two extends JPanel implements ActionListener,KeyListene
 				snake2.move(0,1);
 			}
 			repaint();
-		
-/**		while(start){
+**/				
+		while(start){
 			int oldKey1=key1;
 			if(key1==KeyEvent.VK_LEFT&&oldKey1!=KeyEvent.VK_RIGHT){
-				snake1.move(-1,0);
+				snake1.move(-1,0,snake2);
 			}else if(key1==KeyEvent.VK_RIGHT&&oldKey1!=KeyEvent.VK_LEFT){
-				snake1.move(1,0);
+				snake1.move(1,0,snake2);
 			}else if(key1==KeyEvent.VK_UP&&oldKey1!=KeyEvent.VK_DOWN){
-				snake1.move(0,-1);
+				snake1.move(0,-1,snake2);
 			}else if(key1==KeyEvent.VK_DOWN&&oldKey1!=KeyEvent.VK_UP){
-				snake1.move(0,1);
+				snake1.move(0,1,snake2);
 			}
 			repaint();
 			
+/**			switch(key1) {
+			case KeyEvent.VK_UP://上键
+				if(key1 != oldKey1) {
+					snake1.move(0,1);
+				}
+				break;
+			case KeyEvent.VK_DOWN://下键
+				if(key1 != oldKey1) {
+					snake1.move(0,-1);
+				}
+				break;
+			case KeyEvent.VK_LEFT://左键
+				if(key1 != oldKey1) {
+					snake1.move(1,0);
+				}
+				break;
+			case KeyEvent.VK_RIGHT://右键
+				if(key1 != oldKey1) {
+					snake1.move(-1,0);
+				}
+				break;
+				
+		}
+*/
 			int oldKey2=key2;
 			if(key2==KeyEvent.VK_A&&oldKey2!=KeyEvent.VK_D){
-				snake2.move(-1,0);
+				snake2.move(-1,0,snake1);
 			}else if(key2==KeyEvent.VK_D&&oldKey2!=KeyEvent.VK_A){
-				snake2.move(1,0);
+				snake2.move(1,0,snake1);
 			}else if(key2==KeyEvent.VK_W&&oldKey2!=KeyEvent.VK_S){
-				snake2.move(0,-1);
+				snake2.move(0,-1,snake1);
 			}else if(key2==KeyEvent.VK_S&&oldKey2!=KeyEvent.VK_W){
-				snake2.move(0,1);
+				snake2.move(0,1,snake1);
 			}
 			repaint();
-**/			
+
+			
 			try {
 				thread.sleep(400);
-			} catch (InterruptedException e) {
+			} catch (InterruptedException g) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+				g.printStackTrace();
 			}
 		}
 	}
