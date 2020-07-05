@@ -127,7 +127,7 @@ public class GreddySnake extends JPanel implements ActionListener,KeyListener,Ru
 //			g.drawString("ddhjk",400,320);
 //		}
 	}
-	AchievementRecord ar=new AchievementRecord();//新建成就记录类
+	AchievementRecord ar=null;//新建成就记录类
 	
 	boolean firstClick=true;
 	public void actionPerformed(ActionEvent e) {
@@ -142,6 +142,7 @@ public class GreddySnake extends JPanel implements ActionListener,KeyListener,Ru
 			thread.start();
 			start=true;
 			//开始计时
+			ar=new AchievementRecord();
 			ar.startTiming();
 		}else{
 			start=false;
