@@ -51,11 +51,23 @@ public class MakeGameMap extends JPanel implements MouseMotionListener,MouseList
 	
 	public MakeGameMap(GameMap newMap){
 		edit=true;
-		
 		this.newMap=newMap;
 		this.setBounds(0, 0, 1200, 800);
 		this.setLayout(null);
 		this.setBackground(Color.decode("#e5f8ff"));
+		
+		//找到原地图中最大的传送门，重新设置doorFlag
+		int max=0;
+		for(int i=0;i<28;i++){
+			for(int j=0;j<40;j++){
+				if(newMap.get(i, j)>max){
+					max=newMap.get(i, j);
+				}
+			}
+		}
+		for(int i=1;i<=max/2;i++){
+			doorFlag[i]=1;
+		}
 		
 		init();
 	
@@ -277,9 +289,9 @@ public class MakeGameMap extends JPanel implements MouseMotionListener,MouseList
 						e1.printStackTrace();
 					}
 				}
-				new choose();
-				this.setVisible(false);
-				
+//				new choose();
+//				this.setVisible(false);
+//				
 			}
 			
 		}

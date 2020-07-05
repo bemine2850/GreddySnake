@@ -18,6 +18,7 @@ public class teamwork extends JFrame {
 		Container c = getContentPane();
 		c.setLayout(new BorderLayout());
 		JTextArea jt = new JTextArea(25,60);
+		
 		jt.setTabSize(2);  // 设置Tab键调的距离
 		jt.setLineWrap(true);//激活自动换行功能
 		jt.setWrapStyleWord(true);  //激活断航不断字功能
@@ -46,7 +47,7 @@ public class teamwork extends JFrame {
 /***/			//@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new view1();
+//				new view1();
 				
 			}
 		});

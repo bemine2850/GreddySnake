@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class choose extends JFrame {
-	static List<String> diyList = new ArrayList<String>();//保存自定义关卡名
+	static List<String> diyList;//保存自定义关卡名
 	//弹出式菜单
 	JPopupMenu popup=new JPopupMenu();
 	JLabel l;
@@ -21,6 +21,7 @@ public class choose extends JFrame {
 	String diyFileName;//保存鼠标右键点击的自定义地图名
 	JLabel labelSelected;//保存鼠标右键点击的自定义标签
 	public choose() {
+		diyList = new ArrayList<String>();
 		
 		readDIY();//读取自定义关卡列表
 		setBounds(950,120,495, 770); 
@@ -115,7 +116,7 @@ public class choose extends JFrame {
 		//跳到自定义地图模块MakeGameMap
 		b1.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				dispose();      //当前页面关闭
+//				dispose();      //当前页面关闭
 				JFrame jf=new JFrame("自定义地图");
 				jf.setResizable(false);
 				jf.setVisible(true);
@@ -142,9 +143,11 @@ public class choose extends JFrame {
 		p2.setBounds(20,240, 440, 200);
 		p2.setOpaque(false);//透明
 		//p2.setBackground(Color.white);
-		p2.setLayout(new GridLayout(5,4,7,5));  
+//		p2.setLayout(new GridLayout(5,4,7,5));  
+		p2.setLayout(new FlowLayout(FlowLayout.LEFT,32,5));
 		l.add(p2);
 				
+//		p2.add(new JLabel("  "));
 		for(int i=0;i<diyList.size();i++){
 					//TODO：试一下setName（）和getName（）
 //					JLabel label = new JLabel(i+1+"",new ImageIcon("img/star2.png"), JLabel.CENTER);
@@ -170,6 +173,7 @@ public class choose extends JFrame {
 					
 			});
 			p2.add(label);
+//			p2.add(new JLabel("         "));
 		}
 		p2.setVisible(true);
 	}
@@ -211,7 +215,7 @@ public class choose extends JFrame {
 			String action=e.getActionCommand();
 		
 			if(action.equals("edit")){//编辑地图
-				dispose();      //当前页面关闭
+//				dispose();      //当前页面关闭
 				JFrame jf=new JFrame("自定义地图");
 				jf.setResizable(false);
 				jf.setVisible(true);
@@ -228,6 +232,7 @@ public class choose extends JFrame {
 						break;
 					}
 				}
+				new File("file\\"+diyFileName+".txt").delete();//删除文件
 				writeDIY();
 				p2.setVisible(false);
 				showDIYmap();
@@ -236,10 +241,10 @@ public class choose extends JFrame {
 	};
 	
 	
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-		new choose();
-	}
+//	public static void main(String[] args) {
+//		// TODO Auto-generated method stub
+//
+//		new choose();
+//	}
 
 }

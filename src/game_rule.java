@@ -44,7 +44,7 @@ public class game_rule extends JFrame {
 /***/			//@Override
 			public void actionPerformed(ActionEvent e) {
 				dispose();
-				new view1();
+//				new view1();
 				
 			}
 		});

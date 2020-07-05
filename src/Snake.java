@@ -33,6 +33,7 @@ public class Snake {
 	public void move(int x,int y){
 		if(die(x,y)){//在移动之前预判下一步会不会挂
 			m.playSound("music\\death.wav");//播放死亡音效
+			GreddySnake.btnStart.setEnabled(true);
 			return;
 		}
 		for(int i=0;i<food.foodNum;i++){
@@ -47,7 +48,7 @@ public class Snake {
 			
 			for(int i=0;i<map.height;i++){
 				for(int j=0;j<map.width;j++){
-					if(map.get(i, j)>1 && (i!=bodyList.get(0).getY()+y || j!=bodyList.get(0).getX()+x)){
+					if(map.get(i, j)==map.get(bodyList.get(0).getY()+y, bodyList.get(0).getX()+x) && (i!=bodyList.get(0).getY()+y || j!=bodyList.get(0).getX()+x)){
 //						bodyList.set(0, new SnakeBody(j,i));
 						SnakeBody body=new SnakeBody(bodyList.get(0));
 						bodyList.get(0).setX(j+x);
@@ -71,12 +72,13 @@ public class Snake {
 		SnakeBody head=new SnakeBody(bodyList.get(0));
 		if(map.get(head.getY()+y,head.getX()+x)==1){
 			GreddySnake.start=false;
-			System.out.print(head.getX()+x+" "+head.getY()+y);
+			GreddySnake.ar.startTiming();//停止计时
 			return true;
 		}
 		for(int i=1;i<bodyList.size()-1;i++){//是否咬自己
 			if(head.getX()+x==bodyList.get(i).getX()&&head.getY()+y==bodyList.get(i).getY()){
 				GreddySnake.start=false;
+				GreddySnake.ar.startTiming();//停止计时
 				return true;
 			}
 		}
@@ -85,7 +87,7 @@ public class Snake {
 	
 	public void eat(int x,int y){
 		m.playSound("music\\eat.wav");//播放吃到食物音效
-		score+=5;//吃到食物加5分
+		score+=10;//吃到食物加10分
 		SnakeBody newBody=new SnakeBody(bodyList.get(0).getX()+x,bodyList.get(0).getY()+y);
 		bodyList.add(0,newBody);
 		

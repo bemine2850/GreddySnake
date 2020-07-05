@@ -83,8 +83,6 @@ public class menu extends JFrame {
 				audioclip.stop();   //音乐关闭
 				choose_number = 1;
 				new choose();
-				System.out.println(choose_number);
-				
 			}
 		});
 		//双人游戏
@@ -94,8 +92,6 @@ public class menu extends JFrame {
 				dispose();   
 				choose_number = 2;
 				new choose();
-				System.out.println(choose_number);
-				
 			}
 		});
 			//制作地图S

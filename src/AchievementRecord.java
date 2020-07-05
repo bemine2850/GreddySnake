@@ -1,6 +1,9 @@
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.*;
+
 import javax.swing.*;
 
 public class AchievementRecord extends JFrame{
@@ -9,17 +12,25 @@ public class AchievementRecord extends JFrame{
 		long time;
 	}
 	public int score;
-	private long start;
-	private long end;
+	public long start;
+	public long end;
 	//构造方法，初始化
 	public AchievementRecord() {
 		score=0;
 		start=0;
 		end=0;
 	}
+//	public static void main(String []args){
+//		try {
+//			new AchievementRecord().printScoreTime();
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//	}
 	//加分
 	public void add() {
-		score+=5;//吃一个加5分
+		score+=10;//吃一个加10分
 	}
 	//获取分数
 	public int getScore() {
@@ -75,7 +86,6 @@ public class AchievementRecord extends JFrame{
 		list.add(st);
 		//进行排序
 		list.sort(new Comparator<ST>(){
-			@Override
 			public int compare(ST o1, ST o2) {
 				// TODO Auto-generated method stub
 				if(!(o1.score==o2.score)) {
@@ -121,7 +131,6 @@ public class AchievementRecord extends JFrame{
 		this.add(btn,BorderLayout.SOUTH);
 		btn.addActionListener(new ActionListener() {
 			
-			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
 					new AchievementRecord().printRanking();

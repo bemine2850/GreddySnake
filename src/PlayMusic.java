@@ -11,6 +11,7 @@ import sun.audio.*;
 public class PlayMusic{
 	 File file;
 	 AudioInputStream audioInputStream;
+	 Clip clip;
 	 public void playSound(String filename) {
 		    try {
 		    	
@@ -31,7 +32,7 @@ public class PlayMusic{
 		    try {
 		    	
 		        audioInputStream= AudioSystem.getAudioInputStream(new File(filename).getAbsoluteFile());
-		        Clip clip = AudioSystem.getClip();
+		        clip = AudioSystem.getClip();
 		        clip.open(audioInputStream);
 		        clip.loop(Clip.LOOP_CONTINUOUSLY);//Ñ­»·²¥·Å
 		        
@@ -41,5 +42,9 @@ public class PlayMusic{
 		    }
 	
 	}
+	 
+	 public void stop(){
+		 clip.stop();
+	 }
 	
 }

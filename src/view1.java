@@ -18,7 +18,7 @@ public class view1 extends JFrame  {
        // this.setContentPane(c);//窗体重新载入容器
 		
 		JLabel label = new JLabel();  //标签
-		label.setIcon(new ImageIcon("img/monster.jpg"));	//添加图片
+		label.setIcon(new ImageIcon("img/monster.png"));	//添加图片
 		label.setBounds(70, 30, 760, 420);
 	    c.add(label);
 	    

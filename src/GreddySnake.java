@@ -13,13 +13,18 @@ public class GreddySnake extends JPanel implements ActionListener,KeyListener,Ru
 	public static final int gameBorderHeight=28;//游戏板高度
 	public static final int gameBorderUnit=25;//游戏板单元格大小
 	public static final int gameBorderLeft=25;//游戏板距离左边边界距离
-	public static final int gameBorderUp=40;//游戏板距离左边边界距离
+	public static final int gameBorderUp=40;//游戏板距离上边边界距离
 	
 	GameMap map;
 	Food food;
-	static boolean start=false;
+	JLabel scoreLabel;//得分
+	JLabel t;//时间
+	static boolean start=false;//记录游戏是否
 	static int foodX;
 	static int foodY;
+	
+	static JButton btnStart;
+	JButton btnOver;
 	
 	Snake snake;
 	Random ran=new Random();
@@ -28,27 +33,27 @@ public class GreddySnake extends JPanel implements ActionListener,KeyListener,Ru
 	
 	public GreddySnake(GameMap map){
 		this.map=map;
-		this.setLayout(new FlowLayout(FlowLayout.LEFT));//流式布局，默认布局组件会居中
+//		this.setLayout(new FlowLayout(FlowLayout.LEFT));//流式布局，默认布局组件会居中
+		this.setLayout(null);
 		this.addKeyListener(this);//键盘监听
 		this.setFocusable(true);
 		init();//初始化
+		
+		this.setBackground(Color.decode("#e5f8ff"));
 	}
 	
 	public void init(){//初始化
 		key=0;
 		//添加按键
-		JButton btnStart=new JButton("开始");
-		btnStart.setPreferredSize(new Dimension(70,30));
-		btnStart.setLocation(0, 0);
-//		btnStart.setBounds(500,5,70,30);
+		btnStart=new JButton("开始");
+		btnStart.setBounds(50,5,70,30);
 		btnStart.addActionListener((ActionListener) this);
 		btnStart.setVisible(true);
 		this.add(btnStart);
 		
-		JButton btnOver=new JButton("结束");
-		btnOver.setPreferredSize(new Dimension(70,30));
+		btnOver=new JButton("结束");
+		btnOver.setBounds(130,5,70,30);
 		btnOver.addActionListener((ActionListener) this);
-		btnOver.setLocation(200, 200);
 		this.add(btnOver);
 		//创建小蛇，给它加一节身体，并指定位置
 		snake=new Snake(map);
@@ -62,7 +67,29 @@ public class GreddySnake extends JPanel implements ActionListener,KeyListener,Ru
 		
 		snake.addFood(food);
 		
+		//得分
+		JLabel s=new JLabel("得分：");
+		s.setBounds(840,5,170,30);
+		s.setFont(new Font("宋体",Font.PLAIN,18));
+		this.add(s);
 		
+		scoreLabel=new JLabel();
+		scoreLabel.setBounds(890,5,170,30);
+		scoreLabel.setFont(new Font("隶书",Font.PLAIN,18));
+		scoreLabel.setText(snake.score+"");
+		this.add(scoreLabel);
+		//计时
+		t=new JLabel();
+		t.setBounds(980, 5, 170, 30);
+		t.setFont(new Font("隶书",Font.PLAIN,18));
+		long gap=System.currentTimeMillis()-ar.start;
+		long minutes=gap/(1000*60);
+		long seconds=gap%(1000*60)/1000;
+		String time=minutes+":"+seconds;
+		t.setText("0:0");
+		this.add(t);
+		
+		oldKey=0;
 	}
 	
 	public void paintComponent(Graphics g){//画图
@@ -78,20 +105,23 @@ public class GreddySnake extends JPanel implements ActionListener,KeyListener,Ru
 		}
 		//地图
 		
-		ImageIcon doorIcon = new ImageIcon("img/door1.png");
-		Image imgDoor= doorIcon.getImage();
+		
 		for(int i=0;i<gameBorderHeight;i++){
 			for(int j=0;j<gameBorderWidth;j++){
 				if(map.get(i, j)==1){
 					g.setColor(new Color(139, 170, 65));
 					g.fillRect(j*25+25, i*25+40, 25, 25);
 				}else if(map.get(i, j)>1){
+					ImageIcon doorIcon = new ImageIcon("img/door"+map.get(i, j)/2+".png");
+					Image imgDoor= doorIcon.getImage();
 					g.setColor(new Color(255, 0, 0));
 //					g.fillRect(j*25+25,i*25+40 , 25, 25);
 					g.drawImage(imgDoor, j*gameBorderUnit+gameBorderLeft, i*gameBorderUnit+gameBorderUp, gameBorderUnit,gameBorderUnit, null);
 				}
 			}
 		}
+		//更新得分
+		scoreLabel.setText(snake.score+"");
  
 //		if(start){//游戏中
 			//画食物
@@ -127,14 +157,17 @@ public class GreddySnake extends JPanel implements ActionListener,KeyListener,Ru
 //			g.drawString("ddhjk",400,320);
 //		}
 	}
-	AchievementRecord ar=null;//新建成就记录类
+	static AchievementRecord ar=new AchievementRecord();//新建成就记录类
 	
 	boolean firstClick=true;
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getActionCommand()=="开始"){
+//			snake.score=0;
 			
+			btnStart.setEnabled(false);
 			if(!firstClick){
+				scoreLabel.setVisible(false);
 				init();
 			}
 			firstClick=false;
@@ -145,6 +178,7 @@ public class GreddySnake extends JPanel implements ActionListener,KeyListener,Ru
 			ar=new AchievementRecord();
 			ar.startTiming();
 		}else{
+//			scoreLabel.setVisible(false);
 			start=false;
 			thread=null;
 			//结束计时并打印成绩
@@ -162,49 +196,48 @@ public class GreddySnake extends JPanel implements ActionListener,KeyListener,Ru
 	}
 
 		
-	
+	int oldKey=0;
 	public void keyPressed(KeyEvent e) {
 		// TODO Auto-generated method stub
 		if(start){
-			int oldKey=key;
 			int keycode=e.getKeyCode();
 			if(keycode>=37&&keycode<=40)
 				key=keycode;
-			if(key==KeyEvent.VK_LEFT&&oldKey!=KeyEvent.VK_RIGHT){
-				snake.move(-1,0);
-			}else if(key==KeyEvent.VK_RIGHT&&oldKey!=KeyEvent.VK_LEFT){
-				snake.move(1,0);
-			}else if(key==KeyEvent.VK_UP&&oldKey!=KeyEvent.VK_DOWN){
-				snake.move(0,-1);
-			}else if(key==KeyEvent.VK_DOWN&&oldKey!=KeyEvent.VK_UP){
-				snake.move(0,1);
+			if(key==KeyEvent.VK_LEFT && oldKey!=KeyEvent.VK_RIGHT){
+				snake.move(-1,0);oldKey=key;
+			}else if(key==KeyEvent.VK_RIGHT && oldKey!=KeyEvent.VK_LEFT){
+				snake.move(1,0);oldKey=key;
+			}else if(key==KeyEvent.VK_UP && oldKey!=KeyEvent.VK_DOWN){
+				snake.move(0,-1);oldKey=key;
+			}else if(key==KeyEvent.VK_DOWN && oldKey!=KeyEvent.VK_UP){
+				snake.move(0,1);oldKey=key;
 			}
 			repaint();
 		}
 	}
 
-	public void keyReleased(KeyEvent arg0) {//不用实现
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyReleased(KeyEvent arg0) {}
 
-	public void keyTyped(KeyEvent arg0) {//不用实现
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyTyped(KeyEvent arg0) {}
 
 	public void run() {
 		// TODO Auto-generated method stub
 		while(start){
-			if(key==KeyEvent.VK_LEFT){
+			//更新时间
+			String time;
+			long gap=System.currentTimeMillis()-ar.start;
+			long minutes=gap/(1000*60);
+			long seconds=gap%(1000*60)/1000;
+			time=minutes+":"+seconds;
+			t.setText(time);
+			
+			if(oldKey==KeyEvent.VK_LEFT){
 				snake.move(-1,0);
-				
-			}else if(key==KeyEvent.VK_RIGHT){
+			}else if(oldKey==KeyEvent.VK_RIGHT){
 				snake.move(1,0);
-			}else if(key==KeyEvent.VK_UP){
+			}else if(oldKey==KeyEvent.VK_UP){
 				snake.move(0,-1);
-				
-			}else if(key==KeyEvent.VK_DOWN){
+			}else if(oldKey==KeyEvent.VK_DOWN){
 				snake.move(0,1);
 			}
 			repaint();
