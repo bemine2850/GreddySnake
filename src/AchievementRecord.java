@@ -3,7 +3,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.*;
-
 import javax.swing.*;
 
 public class AchievementRecord extends JFrame{
@@ -12,25 +11,20 @@ public class AchievementRecord extends JFrame{
 		long time;
 	}
 	public int score;
-	public long start;
-	public long end;
+	private long start;
+	private long end;
+	
+	JLabel l;
+	
 	//构造方法，初始化
 	public AchievementRecord() {
 		score=0;
 		start=0;
 		end=0;
 	}
-//	public static void main(String []args){
-//		try {
-//			new AchievementRecord().printScoreTime();
-//		} catch (IOException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//	}
 	//加分
 	public void add() {
-		score+=10;//吃一个加10分
+		score+=5;//吃一个加5分
 	}
 	//获取分数
 	public int getScore() {
@@ -86,6 +80,7 @@ public class AchievementRecord extends JFrame{
 		list.add(st);
 		//进行排序
 		list.sort(new Comparator<ST>(){
+			@Override
 			public int compare(ST o1, ST o2) {
 				// TODO Auto-generated method stub
 				if(!(o1.score==o2.score)) {
@@ -112,25 +107,59 @@ public class AchievementRecord extends JFrame{
 		dos.close();
 
 		//进行显示
-		this.setBounds(50, 50, 1000, 500);
-		this.setTitle("成绩");
-		this.setLayout(new BorderLayout());//边框布局
+		this.setBounds(400, 200, 495, 770);
+		this.setResizable(false);
+//		this.setTitle("成绩");
+//		this.setLayout(new BorderLayout());//边框布局
+		
+		JPanel p=(JPanel)this.getContentPane();
+		p.setLayout(null); 
+		p.setVisible(true);   
+		Icon icon = new ImageIcon("img/b3.png");
+		l= new JLabel(icon);
+		l.setBounds(0, 0,icon.getIconWidth(), icon.getIconHeight());
+		p.add(l);
+		l.setVisible(true);
 		
 		JLabel title=new JLabel("您的成绩");
-		title.setFont(new Font("微软雅黑",0,50));
-		this.add(title,BorderLayout.NORTH);
+		title.setFont(new Font("隶书",Font.PLAIN,60));
+		title.setForeground(Color.white);
+		title.setBounds(130,20,440,200);
+		l.add(title);
 		
-		JLabel score=new JLabel();
-		score.setText("<html><body>分数："+getScore()+"<br>   时间："+getTime()+"<br>本次成绩在排行榜中的排名为："+myRank);
-		score.setFont(new Font("微软雅黑",0,50));
-		this.add(score,BorderLayout.CENTER);
+		JLabel score1=new JLabel();
+		score1.setText("<html><body>分数："+getScore());
+		score1.setFont(new Font("隶书",0,50));
+		score1.setForeground(Color.white);
+		score1.setBounds(100,150,495,200);
+		l.add(score1);
+		
+		JLabel score2=new JLabel();
+		score2.setText("时间："+getTime());
+		score2.setFont(new Font("隶书",0,50));
+		score2.setForeground(Color.white);
+		score2.setBounds(100,250,495,200);
+		l.add(score2);
+		
+		JLabel score3=new JLabel();
+		score3.setText("排名："+myRank);
+		score3.setFont(new Font("隶书",0,50));
+		score3.setForeground(Color.white);
+		score3.setBounds(100,350,495,200);
+		l.add(score3);
 		
 		
-		JButton btn=new JButton("查看排行榜");
+		JButton btn=new JButton(new ImageIcon("img/bn1.png"));
+		JLabel btnText = new JLabel("查 看 排 行 榜");
+		btnText.setForeground(Color.white);
+		btnText.setFont(new Font("隶书",Font.PLAIN,23));
+		btn.setBounds(140, 550, 210, 60);
+		btn.add(btnText);
+		l.add(btn);
 		
-		this.add(btn,BorderLayout.SOUTH);
 		btn.addActionListener(new ActionListener() {
 			
+			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
 					new AchievementRecord().printRanking();
@@ -140,6 +169,13 @@ public class AchievementRecord extends JFrame{
 				}
 				
 			}
+
+/**			@Override
+			public void actionPerformed(ActionEvent arg0) {
+				// TODO Auto-generated method stub
+				
+			}
+*/
 		});
 		this.setVisible(true);
 		
@@ -153,14 +189,14 @@ public class AchievementRecord extends JFrame{
 		int score;
 		long time;
 		int i=1;
-		String str="<html><body>名次&#9分数&#9时间<br>=====================================<br>";
+		String str="<html><body> 名次&#9分数&#9时间<br>---------------<br>";
 		String tmp="";
 		//只打印前10名
 		while (dis.available()>0 && i<=10) {
 			//从文件读取score和time(毫秒)
 			score=dis.readInt();
 			time=dis.readLong();
-			tmp="<html><body>"+i+" &#9;"+score+" &#9;"+ getTime(time)+"<br>";
+			tmp="<html><body> "+i+" &#9;"+score+" &#9;"+ getTime(time)+"<br>";
 			str+=tmp+"\n";
 			i++;
 		}
@@ -169,18 +205,32 @@ public class AchievementRecord extends JFrame{
 		dis.close();
 		
 		//进行排行榜显示
-		this.setBounds(50, 50, 500, 500);
+		this.setBounds(600, 100, 495, 770);
 		this.setTitle("排行榜");
 		this.setLayout(new BorderLayout());//边框布局
+		this.setResizable(false); 
+		
+		JPanel p=(JPanel)this.getContentPane();
+		p.setLayout(null); 
+		p.setVisible(true);   
+		Icon icon = new ImageIcon("img/b3.png");
+		l= new JLabel(icon);
+		l.setBounds(0, 0,icon.getIconWidth(), icon.getIconHeight());
+		p.add(l);
+		l.setVisible(true);
 		
 		JLabel title=new JLabel("排行榜");
-		title.setFont(new Font("宋体",0,50));
-		this.add(title,BorderLayout.NORTH);
+		title.setFont(new Font("隶书",0,60));
+		title.setForeground(Color.white);
+		title.setBounds(150,0,495,200);
+		l.add(title);
 		
 		JLabel st=new JLabel();
 		st.setText(str);
-		st.setFont(new Font("宋体",0,20));
-		this.add(st,BorderLayout.CENTER);
+		st.setFont(new Font("隶书",0,30));
+		st.setForeground(Color.white);
+		st.setBounds(120,150,495,500);
+		l.add(st,BorderLayout.CENTER);
 		
 		this.setVisible(true);
 		
