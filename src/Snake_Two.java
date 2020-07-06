@@ -100,7 +100,7 @@ public class Snake_Two {
 	
 	public void eat(int x,int y){
 		m.playSound("music\\eat.wav");//播放吃到食物音效
-		score+=10;
+		score+=5;
 		SnakeBody newBody=new SnakeBody(bodyList.get(0).getX()+x,bodyList.get(0).getY()+y);
 		bodyList.add(0,newBody);
 		
