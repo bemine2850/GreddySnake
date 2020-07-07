@@ -94,8 +94,10 @@ public class GreddySnake_Two extends JPanel implements ActionListener,KeyListene
 		for(int i=0;i<gameBorderHeight;i++){
 			for(int j=0;j<gameBorderWidth;j++){
 				if(map.get(i, j)==1){
-					g.setColor(new Color(139, 170, 65));
-					g.fillRect(j*25+25, i*25+40, 25, 25);
+					ImageIcon wallIcon = new ImageIcon("img/wall.png");
+					Image imgWall= wallIcon.getImage();
+//					g.drawImage(imgWall, j*gameBorderUnit+gameBorderLeft-2, i*gameBorderUnit+gameBorderUp-2, 30,30, null);
+					g.drawImage(imgWall, j*gameBorderUnit+gameBorderLeft, i*gameBorderUnit+gameBorderUp, 25,25, null);
 				}else if(map.get(i, j)>1){
 					g.setColor(new Color(255, 0, 0));
 //					g.fillRect(j*25+25,i*25+40 , 25, 25);
